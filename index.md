@@ -10,5 +10,4 @@
 
 ## Для ассистентов
 
-Для передачи ассистенту используйте сконкатенированную версию документации:
-https://gromlab.ru/docs/frontend-style-guide/raw/branch/main/RULES.md
+Полная документация в одном MD файле: https://gromlab.ru/docs/frontend-style-guide/raw/branch/main/RULES.md
