@@ -31,9 +31,9 @@
 - Конфигурация VitePress — `.vitepress/config.ts`.
 - `README.md` — описание проекта и не связан с `parts/`.
 
-## Генерация .cursorrules
+## Генерация RULES.md
 
-- Файл `.cursorrules` собирается из содержимого `parts/`.
+- Файл `RULES.md` собирается из содержимого `parts/`.
 - Команда:
   ```bash
   npm run docs

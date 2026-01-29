@@ -16,8 +16,8 @@ const resultMd = concatMdSync("./parts", {
   }
 });
 
-// Записываем результат в файл .cursorrules в корне проекта
-const outputPath = path.join("./", ".cursorrules");
+// Записываем результат в файл RULES.md в корне проекта
+const outputPath = path.join("./", "RULES.md");
 fs.writeFileSync(outputPath, resultMd, "utf8");
 
-console.log(`Файл .cursorrules успешно создан: ${outputPath}`);
+console.log(`Файл RULES.md успешно создан: ${outputPath}`);

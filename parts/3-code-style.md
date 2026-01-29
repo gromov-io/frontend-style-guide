@@ -6,29 +6,9 @@ title: Стиль кода
 
 Раздел описывает единые правила оформления кода: отступы, переносы, кавычки, порядок импортов и базовую читаемость.
 
-## Отступы и переносы
+## Отступы
 
-- Использовать 2 пробела для отступов.
-- Не использовать табы.
-- Одна инструкция — одна строка.
-- Между логическими блоками оставлять пустую строку по необходимости, если это улучшает читаемость.
-- В многострочных конструкциях выравнивать закрывающую скобку по началу выражения.
-
-**Хорошо**
-```ts
-const payload = {
-  id: 1,
-  name: 'User',
-  meta: {
-    role: 'admin',
-  },
-};
-```
-
-**Плохо**
-```ts
-const payload = { id: 1, name: 'User', meta: { role: 'admin' } };
-```
+- 2 пробела (не табы).
 
 ## Длина строк
 
@@ -57,6 +37,7 @@ const config = createRequestConfig(
 
 **Плохо**
 ```ts
+// Плохо: длинная строка с вложенными структурами плохо читается.
 const config = createRequestConfig(endpoint, { headers: { 'X-Request-Id': requestId, 'X-User-Id': userId }, params: { page, pageSize, sort: 'createdAt' } }, timeoutMs);
 ```
 
@@ -78,11 +59,13 @@ const title = `Привет, ${name}`;
 
 **Плохо**
 ```ts
+// Плохо: двойные кавычки в TS и конкатенация вместо шаблонной строки.
 const label = "Сохранить";
 const title = 'Привет, ' + name;
 ```
 
 ```tsx
+// Плохо: одинарные кавычки в JSX-атрибутах.
 <input type='text' placeholder='Введите имя' />
 ```
 
@@ -106,6 +89,7 @@ import type { User } from '../model/types';
 
 **Плохо**
 ```ts
+// Плохо: default импорт и отсутствие пробелов в именованном импорте.
 import MyComponent from 'MyComponent';
 import type {User} from '../model/types';
 ```
@@ -128,6 +112,7 @@ const getName = (user?: { name: string }) => {
 
 **Плохо**
 ```ts
+// Плохо: лишний else после return усложняет чтение.
 const getName = (user?: { name: string }) => {
   if (user) {
     return user.name;
@@ -146,7 +131,7 @@ const getName = (user?: { name: string }) => {
 
 **Хорошо**
 ```ts
-const roles = ['admin', 'editor'];
+const roles = ['admin', 'editor', 'viewer'];
 const options = { id: 1, name: 'User' };
 
 const config = {
@@ -158,7 +143,8 @@ const config = {
 
 **Плохо**
 ```ts
-const roles = ['admin','editor'];
+// Плохо: нет пробелов после запятых и объект слишком длинный для одной строки.
+const roles = ['admin','editor','viewer'];
 const options = { id: 1,name: 'User' };
 const config = { url: '/api/users', method: 'GET', params: { page: 1, pageSize: 20 } };
 ```
