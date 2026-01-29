@@ -1,4 +1,4 @@
-# Код-стайл для фронтенд-проектов на React/NextJS и TypeScript
+# Frontend Style Guide для проектов на React/Next.js и TypeScript
 
 Этот репозиторий содержит документацию с правилами разработки фронтенд-проектов на React/NextJS и TypeScript.
 

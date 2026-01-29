@@ -11,4 +11,4 @@
 ## Для ассистентов
 
 Для передачи ассистенту используйте сконкатенированную версию документации:
-https://gromlab.ru/docs/react-ts.
+https://gromlab.ru/docs/frontend-style-guide/raw/branch/main/RULES.md
