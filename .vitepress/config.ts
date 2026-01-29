@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress';
 
 export default defineConfig({
   lang: 'ru-RU',
-  title: 'Код-стайл React/NextJS и TypeScript',
+  title: 'Frontend Style Guide',
   description: 'Правила и стандарты разработки фронтенд-проектов на React/NextJS и TypeScript',
   themeConfig: {
     siteTitle: 'Frontend Style Guide',
@@ -10,7 +10,7 @@ export default defineConfig({
       {
         text: 'Базовые правила',
         items: [
-          { text: 'Технологии/библиотеки', link: '/parts/1-tech-stack' },
+          { text: 'Технологии и библиотеки', link: '/parts/1-tech-stack' },
           { text: 'Архитектура', link: '/parts/2-architecture' },
           { text: 'Стиль кода', link: '/parts/3-code-style' },
           { text: 'Именование', link: '/parts/4-naming' },
