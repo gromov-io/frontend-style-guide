@@ -18,7 +18,7 @@ title: Стиль кода
 ```ts
 // JavaScript/TypeScript
 const message = 'Привет, мир!';
-const name = 'GramPay';
+const name = 'ProjectName';
 ```
 
 ```tsx

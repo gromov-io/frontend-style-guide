@@ -1,0 +1,12 @@
+.VPNavBarTitle .title {
+  white-space: normal;
+  line-height: 1.2;
+  padding: 6px 0;
+}
+
+.VPNavBarTitle .title span {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}

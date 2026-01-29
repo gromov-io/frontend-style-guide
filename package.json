@@ -4,11 +4,10 @@
   "type": "module",
   "version": "0.0.0",
   "scripts": {
-    "docs": "concat-md --toc --hide-anchor-links --sorter=number docs/parts > ./docs/README.md",
-    "docs1": "node ./docs/concat-md.js",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:serve": "vitepress serve docs"
+    "docs": "node ./concat-md.js",
+    "dev": "vitepress dev .",
+    "build": "vitepress build .",
+    "serve": "vitepress serve ."
   },
   "dependencies": {
     "concat-md": "^0.5.1"
