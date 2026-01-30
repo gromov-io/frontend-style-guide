@@ -13,7 +13,7 @@
 
 ## Build, Test, and Development Commands
 - `npm install` — установка зависимостей.
-- `npm run dev` — локальный сервер VitePress (обычно http://localhost:5173).
+- `npm run dev` — локальный сервер VitePress (обычно localhost:5173).
 - `npm run build` — сборка статического сайта.
 - `npm run serve` — предпросмотр собранной статики.
 - `npm run docs` — пересборка `RULES.md` из `parts/`.
