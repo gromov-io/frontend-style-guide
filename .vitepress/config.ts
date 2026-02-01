@@ -22,6 +22,7 @@ export default defineConfig({
         text: 'Прикладные разделы',
         items: [
           { text: 'Структура проекта', link: '/parts/7-project-structure' },
+          { text: 'Шаблоны генерации кода', link: '/parts/17-templates-generation' },
           { text: 'Компоненты', link: '/parts/8-components' },
           { text: 'Стили', link: '/parts/9-styles' },
           { text: 'Изображения/спрайты', link: '/parts/10-images-sprites' },
