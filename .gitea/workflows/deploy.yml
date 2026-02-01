@@ -1,0 +1,47 @@
+name: Deploy to Production
+
+on:
+  workflow_run:
+    workflows: ["CI/CD Pipeline"]
+    types: [completed]
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
+
+    steps:
+      - name: Setup variables
+        run: |
+          DOCKER_REGISTRY=$(echo "${{ gitea.server_url }}" | sed 's|https://||')
+          echo "DOCKER_REGISTRY=$DOCKER_REGISTRY" >> $GITHUB_ENV
+          REGISTRY_IMAGE="$DOCKER_REGISTRY/$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')"
+          echo "REGISTRY_IMAGE=$REGISTRY_IMAGE" >> $GITHUB_ENV
+
+      - name: Настройка SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H 188.225.47.78 >> ~/.ssh/known_hosts
+
+      - name: Login to Container Registry
+        run: |
+          ssh -i ~/.ssh/deploy_key root@188.225.47.78 "echo '${{ secrets.CR_TOKEN }}' | docker login ${{ env.DOCKER_REGISTRY }} -u '${{ secrets.CR_USER }}' --password-stdin"
+
+      - name: Скачивание образа
+        run: |
+          ssh -i ~/.ssh/deploy_key root@188.225.47.78 "docker pull ${{ env.REGISTRY_IMAGE }}:latest"
+
+      - name: Перезапуск контейнера
+        run: |
+          ssh -i ~/.ssh/deploy_key root@188.225.47.78 "docker stop frontend-style-guide || true && docker rm frontend-style-guide || true && docker run -d --name frontend-style-guide --network web --restart unless-stopped ${{ env.REGISTRY_IMAGE }}:latest"
+
+      - name: Очистка
+        run: |
+          ssh -i ~/.ssh/deploy_key root@188.225.47.78 "docker image prune -f"
+
+      - name: Статус
+        run: |
+          ssh -i ~/.ssh/deploy_key root@188.225.47.78 "docker ps --filter name=frontend-style-guide"
