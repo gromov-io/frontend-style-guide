@@ -68,22 +68,26 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H 188.225.47.78 >> ~/.ssh/known_hosts
 
-      - name: Login to Container Registry
+      - name: Деплой
         run: |
-          ssh -i ~/.ssh/deploy_key root@188.225.47.78 "echo '${{ secrets.CR_TOKEN }}' | docker login ${{ env.DOCKER_REGISTRY }} -u '${{ secrets.CR_USER }}' --password-stdin"
+          ssh -i ~/.ssh/deploy_key root@188.225.47.78 bash -s <<'SCRIPT'
+            set -e
+            IMAGE="${{ env.REGISTRY_IMAGE }}:latest"
+            CONTAINER="frontend-style-guide"
 
-      - name: Скачивание образа
-        run: |
-          ssh -i ~/.ssh/deploy_key root@188.225.47.78 "docker pull ${{ env.REGISTRY_IMAGE }}:latest"
+            # Логин в реестр
+            echo '${{ secrets.CR_TOKEN }}' | docker login ${{ env.DOCKER_REGISTRY }} -u '${{ secrets.CR_USER }}' --password-stdin
 
-      - name: Перезапуск контейнера
-        run: |
-          ssh -i ~/.ssh/deploy_key root@188.225.47.78 "docker stop frontend-style-guide || true && docker rm frontend-style-guide || true && docker run -d --name frontend-style-guide --network web --restart unless-stopped ${{ env.REGISTRY_IMAGE }}:latest"
+            # Скачать образ
+            docker pull "$IMAGE"
 
-      - name: Очистка
-        run: |
-          ssh -i ~/.ssh/deploy_key root@188.225.47.78 "docker image prune -f"
+            # Перезапустить контейнер
+            docker stop "$CONTAINER" 2>/dev/null; docker rm "$CONTAINER" 2>/dev/null
+            docker run -d --name "$CONTAINER" --network web --restart unless-stopped "$IMAGE"
 
-      - name: Статус
-        run: |
-          ssh -i ~/.ssh/deploy_key root@188.225.47.78 "docker ps --filter name=frontend-style-guide"
+            # Очистка старых образов
+            docker image prune -f
+
+            # Статус
+            docker ps --filter "name=$CONTAINER"
+          SCRIPT
